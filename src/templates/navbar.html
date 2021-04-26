@@ -1,0 +1,165 @@
+<!-- navbar starts -->
+<style type="text/css">
+  @media (min-width: 992px) {
+    .dropdown:hover .dropdown-menu {
+      display: block;
+      top: 95%;
+
+    }
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-black bg-lite bg- justify-content-center">
+  <div class="container-fluid ">
+
+
+    <a class="navbar-brand" href="/"><img src="{{url_for('static',filename='logos/sharp.jpg')}}" width="50"
+        height="50" alt="logo.png" style="opacity: 0.95;">
+    </a>
+
+    <button sytle="backcolor:red;" id="nav-toggle-button" class="navbar-toggler" style="color: black;" type="button"
+      data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars" aria-hidden="true"> </i>
+    </button>
+
+    <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto" style="margin: 0 auto;">
+
+        <li class="nav-item dropdown ">
+          <a style="color: black;" class="navbar-brand" href="/">
+            <b style="opacity: 0.9;">Home</b></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a style="color:black; " class="nav-link navbar-brand" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <b style="opacity: 0.9;">Categories</b>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:white;">
+            {% for category in categories %}
+            <a class="dropdown-item text-black text-capitalize "
+              href="{{url_for('get_categories',id=category.id)}}">{{category.name}}</a>
+            {% endfor %}
+          </div>
+        </li>
+
+        {% if current_user.is_authenticated %}
+
+        {% if session['is_admin'] %}
+        <li class="nav-item dropdown">
+          <a style="color: black;" class="nav-link navbar-brand" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <b style="opacity: 0.9;">Admin</b>
+          </a>
+          <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:white;">
+            <a class="dropdown-item text-black" href="{{url_for('dashboard_users',name='admin')}}"
+              class="navbar-brand">
+              <i style="font-size: 18px; margin-right: 5px;" class="fa fa-user-circle" aria-hidden="true"></i> Profile
+            </a>
+
+            <a class="dropdown-item text-black" href="{{url_for('dashboard')}}" class="navbar-brand">
+              <i style="font-size: 16px; margin-right: 5px;" class="fa fa-bars" aria-hidden="true"></i> Dashboard
+            </a>
+
+            <a class="dropdown-item text-black" href="{{url_for('update_admin_profile')}}" class="navbar-brand">
+              <i style="font-size: 16px; margin-right: 5px;" class="fas fa-user-edit" aria-hidden="true"></i> Update
+              Profile
+            </a>
+            <a class="dropdown-item text-black" href="{{url_for('logout')}}" class="navbar-brand">
+              <i style="font-size: 16px; margin-right: 5px;" class="fas fa-sign-out-alt" aria-hidden="true"></i> LogOut
+            </a>
+
+          </div>
+        </li>
+
+        {% else %}
+        <li class="nav-item dropdown">
+          <a style="color: black;" class="nav-link navbar-brand" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+            <b style="opacity: 0.9;">Account</b>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: white;">
+            <a class="dropdown-item text-black" href="{{url_for('customer_profile')}}" class="navbar-brand">
+              <i style="font-size: 18px; margin-right: 5px;" class="fa fa-user-circle" aria-hidden="true"></i> Profile
+            </a>
+
+            <a class="dropdown-item text-black" href="{{url_for('update_customer_profile')}}"
+              class="navbar-brand">
+              <i style="font-size: 16px; margin-right: 5px;" class="fas fa-user-edit" aria-hidden="true"></i> Update
+              Profile
+            </a>
+            <a class="dropdown-item text-black" href="{{url_for('logout')}}" class="navbar-brand">
+              <i style="font-size: 16px; margin-right: 5px;" class="fas fa-sign-out-alt" aria-hidden="true"></i> LogOut
+            </a>
+
+          </div>
+        </li>
+
+        {% endif %}
+
+
+        {% else %}
+
+        <li class="nav-item dropdown">
+          <a style="color: black;" class="nav-link navbar-brand" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+            <b style="opacity: 0.9;">Account</b>
+          </a>
+          <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:white;">
+
+
+            <a class="dropdown-item text-black " href="{{url_for('login')}}" class="navbar-brand">
+             Login
+            </a>
+
+
+            <a class="dropdown-item text-black " href="{{url_for('customer_register')}}" class="navbar-brand">
+              Register
+            </a>
+
+          </div>
+        </li>
+
+
+
+
+        {% endif %}
+
+
+        <!-- <form action="{{url_for('search')}}" method="POST" class="form-inline">
+          <div class="row">
+            <div class="col-12">
+              <div class="input-group">
+                <input id="input_id" name="search"
+                  style="font-size: 20px; border:0; background-color:rgb(197, 133, 15); opacity: 0.5;"
+                  class="form-control text-white bg-lite rounded-right" type="search"
+                  placeholder="Search all products...">
+                <div class="input-group-append">
+                  <button class="btn btn-black" type="submit" style="font-size: 20px;">
+                    <i style="color: white; font-size: 24px; opacity: 0.9;" class="fa fa-search" aria-hidden="true"></i>
+
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </form> -->
+
+        <div class="box" style="font-size: 20px;">
+
+          <a style="color: black;" class="nav-link" href="{{url_for('getCart')}}" tabindex="-1"><i
+              class="fa fa-shopping-cart"  style="font-size: 24px; opacity: 0.9;" aria-hidden="true"></i>
+           ( {{session['cart']|length}} )
+          </a>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- navbar ends -->

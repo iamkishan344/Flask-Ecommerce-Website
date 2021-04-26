@@ -1,0 +1,16 @@
+{% extends "layout.html" %} 
+{% block title %}404 Page not found {% endblock %}
+{% block content %}
+
+{% include 'navbar.html' %}
+
+
+<div class="mt-4"></div>
+<div class="text-center mt-4" style="color: black; opacity: 0.5; margin-bottom: 190px; ">
+   <h1 class="mt-3" style="color: black;">Your cart is empty</h1> 
+
+  <h3 class="my-5">to continue shopping...  <a href="{{ url_for('index') }}" class="btn btn-sm btn-info">Click Here</a> </h3> 
+</div>
+<div class="mt-3"></div>
+{% include 'footer.html' %}
+{% endblock %}

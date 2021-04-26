@@ -1,0 +1,246 @@
+{% extends "admin/layout.html" %}
+
+{% block head %}
+
+
+
+
+<title>Dashboard | Greesha </title>
+
+
+<!-- Core Css -->
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/datatables.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/line-awesome.min.css')}}">
+
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/jquery.mCustomScrollbar.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/bootstrap-select.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/bootstrap.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/bootstrap-slider.css')}}">
+
+<!-- Custom Css -->
+<link rel="stylesheet" href="{{url_for('static',filename='assets/css/style.min.css')}}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
+{% endblock head %}
+
+{% block content %}
+
+<!-- ########## START: MAIN PANEL ########## -->
+<section class="mainpanel">
+    <div class="pagebody">
+
+        <!----======= Start Component =======---->
+        <div class="card mb-5 mt-4">
+            {% include "_messages.html" %}
+            <div class="card-header py-4">
+
+                <h4 class="text-secondary font-weight-bold mb-0 mt-1
+                     ml-3">Dashboard
+                </h4>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+
+
+        <!-- <img src="{{url_for('static',filename='logos/logo.jpg')}}" alt="Dashboard" width="1000" height="300" /> -->
+
+    </div>
+
+
+</section>
+
+
+<!-- ########## END: MAIN PANEL ########## -->
+
+
+
+
+<script type="text/javascript">
+
+    const dayNames = ["", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+    ];
+    new Morris.Area({
+        element: 'mySalechart',
+        data: [
+            { d: 1, a: 60 },
+            { d: 2, a: 20 },
+            { d: 3, a: 30 },
+            { d: 4, a: 80 },
+            { d: 5, a: 40 },
+            { d: 6, a: 60 },
+            { d: 7, a: 90 }
+
+        ],
+        xkey: 'd',
+        parseTime: false,
+        ykeys: ['a'],
+        xLabelFormat: function (x) {
+            var index = parseInt(x.src.d);
+            return dayNames[index];
+        },
+        xLabels: "day",
+        labels: ['Series A'],
+        lineColors: ['#a0d0e0', '#3dbeee'],
+        hideHover: 'auto'
+
+    });
+
+
+
+</script>
+
+<script type="text/javascript">
+
+
+
+
+    const monthNames = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    new Morris.Area({
+        element: 'myEmailchart',
+        data: [
+            { y: 1, a: 10 },
+            { y: 2, a: 40 },
+            { y: 3, a: 30 },
+            { y: 4, a: 50 },
+            { y: 5, a: 30 },
+            { y: 6, a: 70 }
+        ],
+        xkey: 'y',
+        parseTime: false,
+        ykeys: ['a'],
+        xLabelFormat: function (x) {
+            var index = parseInt(x.src.y);
+            return monthNames[index];
+        },
+        xLabels: "month",
+        labels: ['Series A'],
+        lineColors: ['#a0d0e0', '#3dbeee'],
+        hideHover: 'auto'
+
+    });
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    new Morris.Area({
+        element: 'myTaskchart',
+        data: [
+            { y: 1, a: 30 },
+            { y: 2, a: 10 },
+            { y: 3, a: 80 },
+            { y: 4, a: 40 },
+            { y: 5, a: 80 },
+            { y: 6, a: 50 }
+        ],
+        xkey: 'y',
+        parseTime: false,
+        ykeys: ['a'],
+        xLabelFormat: function (x) {
+            var index = parseInt(x.src.y);
+            return monthNames[index];
+        },
+        xLabels: "month",
+        labels: ['Series A'],
+        lineColors: ['#a0d0e0', '#3dbeee'],
+        hideHover: 'auto'
+
+    });
+
+
+
+</script>
+
+
+<script>
+    // Create a "close" button and append it to each list item
+    var myNodelist = document.getElementsByClassName("list-group-item");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("BUTTON");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+    }
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+
+    // Add a "checked" symbol when clicking on a list item
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function (ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+        }
+    }, false);
+
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL").appendChild(li);
+        }
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script src="{{url_for('static', filename='assets/scripts/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/popper.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/bootstrap-slider.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/bootstrap-select.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/bootstrap-tooltip-custom-class.js')}}"></script>
+
+<script src="{{url_for('static', filename='assets/scripts/jquery.mCustomScrollbar.js')}}"></script>
+
+<script src="{{url_for('static', filename='assets/scripts/Chart.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/dashboard.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/datatables.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/ripple.min.js')}}"></script>
+<script src="{{url_for('static', filename='assets/scripts/custome.js')}}"></script>
+
+{% endblock scripts %}

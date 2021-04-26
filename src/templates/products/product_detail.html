@@ -1,0 +1,185 @@
+{% extends 'layout.html' %}
+{% block title %} Product Detail {% endblock %}
+{% block content %}
+
+
+{% include 'navbar.html' %}
+
+<div class="main-page">
+	<hr style=" margin-top: 0rem; border-top: 1px solid #696969;">
+	<div class="content-container">
+		<div class="left-container">
+			<div class="product-image-container">
+				<img class="product-image-featured" id="featured"
+					src="{{url_for('static', filename='images/' + product.image_1)}}" height="400" width="400"
+					alt="{{product.name}}">
+				<ul class="product-image-list">
+					<!-- <li class="item-selected">
+									<img src="images/image-1.jpg" class="product-image-item" alt="Canon Image">
+							</li>
+							<li>
+									<img src="images/image-2.jpg" class="product-image-item" alt="Canon Image">
+							</li>
+							<li>
+									<img src="images/image-3.jpg" class="product-image-item" alt="Canon Image">
+							</li>
+							<li>
+									<img src="images/image-4.jpg" class="product-image-item" alt="Canon Image">
+							</li>
+							<li>
+									<img src="images/image-5.jpg" class="product-image-item" alt="Canon Image">
+							</li> -->
+				</ul>
+			</div>
+		</div>
+
+		<div class="right-container">
+
+			{% if product.discount > 0 %}
+			{% set new_dis = "%0.2f" | format((product.price |float)-(product.discount/100)*product.price|float) %}
+			<h3 class="mb-3" style="color: #000000;">{{product.name}}</h3>
+			<!-- <h4 class="mb-3" style="color: #000000;">{{product.model}}</h4> -->
+			<h5 style="color: #000000; font-size: 20px;">Rs {{new_dis}}</h5>
+			<p style="color: #000000;"><strike>Rs {{product.price}}</strike> ({{product.discount}}% OFF)</p>
+			{% else %}
+			<h3 class="mb-3" style="color: #000000; font-size: 19px;">{{product.name}}</h3>
+			<h5 style="color: #000000; font-size: 20px;">Rs {{product.price}}</h5>
+			{% endif %}
+
+			<form action="{{url_for('AddCart')}}" method="POST">
+				<input type="hidden" name="product_id" value="{{product.id}}">
+				<label for="" style="color: #000000;">Quantity:</label>
+				<br>
+				<input class="form-control" style="width: 120px;" type="number" name="quantity" id="" value="1"
+					min="1" max="{{product.stock}}">
+				</select>
+				<br>
+
+				<button type="submit" class="btn btn-dark border border-light mt-1"> ADD TO
+					CART</button>
+
+
+                	
+
+				<button type="submit" class="btn btn-dark border border-light mt-1  "><a href="{{url_for('get_order')}}"> BUY NOW</a> </button>
+
+
+				<hr>
+				<b style="color: #000000;">Product Details:</b>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>MODEL : {{product.model}}</span>
+				</div>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>COLOR : {{product.colors}}</span>
+				</div>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>WATT : {{product.watt}}Vh</span>
+				</div>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>CUTOUT : {{product.cutout}}</span>
+				</div>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>OUTER : {{product.outer}}</span>
+				</div>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>HEIGHT : {{product.height}}</span>
+				</div>
+				<div class="subtitle-container" style="color: #000000;">
+					<span>STOCK : {{product.stock}}</span>
+				</div>
+				<b style="color: #000000;">Description:</b>
+				<p style="color: #000000; margin-top: 1px"> {{product.desc}}</p>
+
+			</form>
+
+
+		</div>
+	</div>
+<!-- </div> -->
+
+<!-- 
+	<div class="row mt-3">
+		<h3 class="ml-3 " style="color: white;">You Also Like</h3>
+	</div>
+
+
+
+    <div class="row mt-3">
+		{% for product in products %}
+
+		{% if product.id != product_id %}
+       <div class="col-md-3 mt-3">
+	   <div class="card border border-dark" style="background-color: black;">
+		<input type="hidden" value="{{product.name}}">
+		<a href="{{url_for('product_detail',id=product.id)}}">
+		<img src="{{url_for('static',filename='images/'+product.image_1)}}" alt="{{product.name}}" class="card-img-top" style="background-color: black;" height="240"></a>
+		<div class="card-body " style="background-color: white; height: 6rem;">
+			{% if product.discount > 0 %}
+			{% set new_dis = "%0.2f" | format((product.price |float)-(product.discount/100)*product.price|float) %}
+			<h5 class="text-center" style="color: black; font-size: 15px; margin-top: 11px; margin-bottom: 2px;">{{product.name}}</h5>
+			<h5 class="text-center" style="color: black; font-size: 12px; margin-top: 6px;"> ${{new_dis}}</h5> 
+			<p class="text-center" style="color: black; font-size: 12px;">Price: <strike>${{product.price}}</strike> ({{product.discount}}% OFF)</p>
+			{% else %}
+			<h5 class="text-center" style="color: black;">{{product.name}}</h5>
+			<p class="text-center" style="color: black;">Price ${{product.price}}</p>
+			{% endif %}
+		</div>
+		<div class="card-footer" style="background-color: white; height: 3.5rem;">
+
+		<form action="{{url_for('AddCart')}}" method="POST">
+		<input type="hidden" name="product_id" value="{{product.id}}">
+		<button type="submit" class="btn btn-sm btn-secondary mx-auto d-block">Add Cart</button>
+		
+		<input type="hidden" name="quantity" id="" value="1">
+	</form>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+</div> -->
+
+
+<script type="text/javascript">
+
+	var b_image = document.getElementById('b_image')
+	var s_image = document.getElementById('s_image').getElementsByTagName('img')
+
+	var img_1 = document.getElementById("s_image_1")
+	var img_2 = document.getElementById("s_image_2")
+	var img_3 = document.getElementById("s_image_3")
+
+
+
+	for (var i = 0; i < s_image.length; i++) {
+		//
+		s_image[i].addEventListener('click', full_image);
+
+
+
+	}
+
+	function reload() {
+		reload = location.reload();
+	}
+
+	function full_image() {
+
+
+		var ImageSRC = this.getAttribute('src');
+		b_image.innerHTML = "<img src=" + ImageSRC + " width='400' height='400' >";
+		var img_src = s_image.getAttribute('src');
+		// alert(img_src)
+		img_1.innerHTML = s_image[0].src;
+		img_2.innerHTML = s_image[1].src;
+		img_3.innerHTML = s_image[2].src;
+
+	}
+
+
+</script>
+
+{% include 'footer.html' %}
+
+{% endblock content %}
