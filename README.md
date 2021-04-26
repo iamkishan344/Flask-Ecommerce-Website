@@ -5,6 +5,7 @@ Ecommerce web application using python and flask framework.In this project SQLAl
 Requirements
 
 Python (version 6 or above)
+
 Installation
 
      pip install -r requirements.txt
